@@ -92,7 +92,7 @@ Arvore_curso *cria_arvore_curso();
 Dado_curso lerDadosCurso();
 int inserir_curso(Arvore_curso **raiz_curso, Dado_curso curso);
 Arvore_curso *buscar_curso(Arvore_curso *raiz_curso, int codigo_curso);
-
+void imprime_arvore_cursos(Arvore_curso *raiz);
 // Funções para manipular a árvore disciplinas
 Arvore_disciplina *cria_arvore_disciplina();
 Dado_disciplina lerDadosDisciplina();
@@ -103,3 +103,10 @@ void mostrar_disciplinas_de_curso(Arvore_disciplina *raiz_disciplina, int codigo
 void mostrar_disciplinas_de_periodo_curso(Arvore_disciplina *raiz_disciplina, int numero_periodo, int codigo_curso);
 void mostrar_disciplina_de_aluno_matriculado(Arvore_disciplina *raiz_disciplina, Arvore_matricula *raiz_matricula, int matricula);
 int adicionar_disciplina_curso(Arvore_curso *raiz, Dado_disciplina disciplina, int codigo_curso);
+void imprimir_arvore_disciplinas(Arvore_disciplina *raiz);
+
+
+Arvore_notas *cria_arvore_notas();
+Dado_nota lerDadosNota();
+int inserir_nota(Arvore_notas **raiz_notas, Dado_nota nota);
+Arvore_notas *buscar_nota(Arvore_notas *raiz_notas, int codigo_disciplina);
