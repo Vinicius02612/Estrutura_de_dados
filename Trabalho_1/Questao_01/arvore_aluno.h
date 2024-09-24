@@ -35,7 +35,7 @@ typedef struct arvore_curso {
 
 //++++++++++++++++++++++++Inicio da estrutura matricula ++++++++++++++++++++++++
 typedef struct arvore_matricula{
-    int matricula;
+    int codigo_disciplina;
     struct arvore_matricula *esq;
     struct arvore_matricula *dir;
 }Arvore_matricula;
@@ -105,8 +105,13 @@ void mostrar_disciplina_de_aluno_matriculado(Arvore_disciplina *raiz_disciplina,
 int adicionar_disciplina_curso(Arvore_curso *raiz, Dado_disciplina disciplina, int codigo_curso);
 void imprimir_arvore_disciplinas(Arvore_disciplina *raiz);
 
+Arvore_matricula *cria_arvore_matricula();
+Arvore_matricula *aloca_no_matricula(int codigo_disciplina);
+int inserir_arvore_matricula(Arvore_matricula **raiz_matricula, int codigo_disciplina);
+
 
 Arvore_notas *cria_arvore_notas();
 Dado_nota lerDadosNota();
-int inserir_nota(Arvore_notas **raiz_notas, Dado_nota nota);
+Arvore_notas *aloca_no_nota(Dado_nota nota);
+int inserir_arvore_nota(Arvore_notas **raiz_notas, Dado_nota nota);
 Arvore_notas *buscar_nota(Arvore_notas *raiz_notas, int codigo_disciplina);
