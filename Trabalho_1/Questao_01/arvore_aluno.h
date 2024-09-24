@@ -108,7 +108,7 @@ void imprimir_arvore_disciplinas(Arvore_disciplina *raiz);
 Arvore_matricula *cria_arvore_matricula();
 Arvore_matricula *aloca_no_matricula(int codigo_disciplina);
 int inserir_arvore_matricula(Arvore_matricula **raiz_matricula, int codigo_disciplina);
-
+int remover_arvore_matricula(Arvore_matricula **raiz_matricula, int codigo_disciplina);
 
 Arvore_notas *cria_arvore_notas();
 Dado_nota lerDadosNota();
