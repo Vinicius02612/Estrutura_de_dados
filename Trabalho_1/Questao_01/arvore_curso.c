@@ -87,6 +87,16 @@ Dado_curso buscar_dado_curso(Arvore_curso *raiz, int codigo_curso){
     return curso;
 }
 
+void mostrar_disciplinas_de_curso(Arvore_curso *raiz_curso, int codigo_curso){
+    Dado_curso curso;
+    curso = buscar_dado_curso(raiz_curso, codigo_curso);
+    if(curso.disciplinas != NULL){
+        printf("Disciplinas do curso %s\n", curso.nome_curso);
+        imprimir_arvore_disciplina(curso.disciplinas);
+    }else{
+        printf("Curso sem disciplinas cadastradas\n");
+    }
+}
 
 void imprime_dado_curso(Dado_curso curso){
     printf("Codigo do curso: %d | \n Nome do curso: %s |\n Carga Horária %d |\n Quantidade de Periodos %d |\n",curso.codigo_curso, curso.nome_curso, curso.carga_horaria, curso.quantidade_periodos);

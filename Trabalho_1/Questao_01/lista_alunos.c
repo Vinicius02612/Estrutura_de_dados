@@ -66,6 +66,20 @@ int inserir_aluno(Lista_alunos **lst_aluno, Dado_aluno aluno, Arvore_curso *raiz
     return inseriu;
 }
 
+Dado_aluno buscar_aluno(Lista_alunos *lst_aluno, int matricula){
+    Lista_alunos *aux;
+    aux = lst_aluno;
+    Dado_aluno aluno;
+    while(aux != NULL && aux->aluno.matricula != matricula){
+        aux = aux->prox;
+    }
+    if(aux != NULL){
+        aluno = aux->aluno;
+    }else{
+        aluno.matricula = -1;
+    }
+    return aluno;
+}
 
 void imprime_dado_aluno(Dado_aluno aluno){
     printf("Matricula: %d\n", aluno.matricula);
@@ -86,6 +100,16 @@ void imprimir_lista_alunos(Lista_alunos *lst_aluno){
     }
 }
 
+void mostrar_aluno_de_curso(Lista_alunos *lista, int codigo_curso){
+    Lista_alunos *aux;
+    aux = lista;
+    while(aux != NULL){
+        if(aux->aluno.codigo_curso == codigo_curso){
+            imprime_dado_aluno(aux->aluno);
+        }
+        aux = aux->prox;
+    }
+}
 void libera_aluno( Lista_alunos *lst_aluno){
     Lista_alunos *aux;
     aux = lst_aluno;
