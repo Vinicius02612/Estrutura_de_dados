@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "arvore_aluno.h"
+#include "prototipos.h"
 
 void test_insertions() {
     // Create a new tree
