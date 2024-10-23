@@ -39,24 +39,26 @@ Dado_disciplina lerDadosDisciplina(){
     return disciplina;
 }
 
-Arvore_disciplina *inserir_disciplina(Arvore_disciplina **raiz_disciplina, Dado_disciplina disciplina){
+int inserir_disciplina(Arvore_disciplina **raiz_disciplina, Dado_disciplina disciplina){
+    int inseriu = 0;
     if(*raiz_disciplina == NULL){
         *raiz_disciplina = aloca_no_disciplina(disciplina);
+        inseriu = 1;
     }else if(disciplina.codigo_disciplina < (*raiz_disciplina)->disciplina.codigo_disciplina){
-        (*raiz_disciplina)->esq = inserir_disciplina(&((*raiz_disciplina)->esq), disciplina);
+       inseriu = inserir_disciplina(&((*raiz_disciplina)->esq), disciplina);
     }else{
-        (*raiz_disciplina)->dir = inserir_disciplina(&((*raiz_disciplina)->dir), disciplina);
+        inseriu = inserir_disciplina(&((*raiz_disciplina)->dir), disciplina);
     }
-    return *raiz_disciplina;
+    return inseriu;
 }
 
-int verifica_periodo( Arvore_curso *raiz_curso, Dado_disciplina disciplina  ){
+int verifica_periodo( Dado_curso curso, Dado_disciplina disciplina  ){
     int status = 0;
-    if(raiz_curso != NULL){
-        if( (disciplina.numero_periodo <  1) &&  (disciplina.numero_periodo <= raiz_curso->curso.quantidade_periodos) ){
+    
+    if((disciplina.numero_periodo >=  1) &&  (disciplina.numero_periodo <= curso.quantidade_periodos) ){
             status = 1;
-        }
     }
+
     return status;
 }
  
@@ -73,21 +75,87 @@ int verifica_carga_horaria(Dado_disciplina disciplina){
 
 //adicionar disciplina ao curso
 int adicionar_disciplina_curso(Arvore_curso *raiz_curso, Dado_disciplina disciplina, int codigo_curso){
-    int adicionou = 0;
+    int adicionou, status;
     Dado_curso curso;
     if(raiz_curso != NULL){
         curso = buscar_dado_curso(raiz_curso, codigo_curso);
-        if(verifica_periodo(raiz_curso, disciplina) != 0 && verifica_carga_horaria(disciplina) != 0){
-            curso.disciplinas = inserir_disciplina(&(curso.disciplinas), disciplina);
-            adicionou = 1;
+        if(verifica_periodo(curso, disciplina) != 0 && verifica_carga_horaria(disciplina) != 0){
+            status = inserir_disciplina(&raiz_curso->curso.disciplinas, disciplina);
+            if(status != 0){
+                adicionou = 1;
+            }
         }   
     }
     return adicionou;
 }
 
+Dado_disciplina buscar_disciplina(Arvore_disciplina *raiz_disciplina, int codigo_disciplina){
+    Dado_disciplina disciplina;
+    if(raiz_disciplina != NULL){
+        if(raiz_disciplina->disciplina.codigo_disciplina == codigo_disciplina){
+            disciplina = raiz_disciplina->disciplina;
+        }else if(codigo_disciplina < raiz_disciplina->disciplina.codigo_disciplina){
+            disciplina = buscar_disciplina(raiz_disciplina->esq, codigo_disciplina);
+        }else{
+            disciplina = buscar_disciplina(raiz_disciplina->dir, codigo_disciplina);
+        }
+    }
+    return disciplina;
+}
+
+Arvore_disciplina *procura_menor_dir(Arvore_disciplina *raiz){
+    Arvore_disciplina *aux = raiz;
+    while(aux->esq != NULL){
+        aux = aux->esq;
+    }
+    return aux;
+}
+
+
+int remover_disciplina(Arvore_disciplina **raiz_disciplina, int codigo_disciplina){
+    int status = 0;
+    if(*raiz_disciplina != NULL){
+        if((*raiz_disciplina)->disciplina.codigo_disciplina == codigo_disciplina){
+            if((*raiz_disciplina)->esq == NULL && (*raiz_disciplina)->dir == NULL){ // no folha
+                free(*raiz_disciplina);
+                *raiz_disciplina = NULL;
+            }else if((*raiz_disciplina)->esq == NULL){
+                Arvore_disciplina *aux = *raiz_disciplina;
+                *raiz_disciplina = (*raiz_disciplina)->dir;
+                free(aux);
+            }else if((*raiz_disciplina)->dir == NULL){
+                Arvore_disciplina *aux = *raiz_disciplina;
+                *raiz_disciplina = (*raiz_disciplina)->esq;
+                free(aux);
+            }else{
+                Arvore_disciplina *aux = procura_menor_dir((*raiz_disciplina)->dir);
+                (*raiz_disciplina)->disciplina = aux->disciplina;
+                status = remover_disciplina(&((*raiz_disciplina)->esq), aux->disciplina.codigo_disciplina);
+            }
+            status = 1;
+        }else if(codigo_disciplina < (*raiz_disciplina)->disciplina.codigo_disciplina){
+            status = remover_disciplina(&((*raiz_disciplina)->esq), codigo_disciplina);
+        }else if(codigo_disciplina > (*raiz_disciplina)->disciplina.codigo_disciplina){
+            status = remover_disciplina(&((*raiz_disciplina)->dir), codigo_disciplina);
+        }
+    }
+    return status;
+
+}
 
 void imprmir_dado_disciplina(Dado_disciplina disciplina){
-    printf("Codigo da disciplina: %d | \n Nome da disciplina: %s |\n Carga Horária %d |\n Numero de Periodos %d |\n",disciplina.codigo_disciplina, disciplina.nome_disciplina, disciplina.carga_horaria, disciplina.numero_periodo);
+    printf("---------------------------\n"
+            "Codigo da disciplina: %d\n"
+            "Nome da disciplina: %s\n"
+            "Carga Horária %d\n"
+            "Numero de Periodos %d\n"
+            "---------------------------\n",
+            disciplina.codigo_disciplina, 
+            disciplina.nome_disciplina, 
+            disciplina.carga_horaria, 
+            disciplina.numero_periodo
+           );
+           
 }
 
 void imprimir_arvore_disciplina(Arvore_disciplina *raiz){
@@ -95,5 +163,14 @@ void imprimir_arvore_disciplina(Arvore_disciplina *raiz){
         imprimir_arvore_disciplina(raiz->esq);
         imprmir_dado_disciplina(raiz->disciplina);
         imprimir_arvore_disciplina(raiz->dir);
+    }
+}
+
+//liberar arvore disciplina
+void libera_arvore_disciplina(Arvore_disciplina *raiz){
+    if(raiz != NULL){
+        libera_arvore_disciplina(raiz->esq);
+        libera_arvore_disciplina(raiz->dir);
+        free(raiz);
     }
 }

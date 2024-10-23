@@ -22,8 +22,8 @@ Dado_aluno lerDadosAluno(){
     scanf("%s", aluno.nome);
     printf("Digite o codigo do curso do aluno: ");
     scanf("%d", &aluno.codigo_curso);
-    aluno.matriculas = NULL; //arvore de matriculas
-    aluno.notas = NULL; //arvore de notas
+    aluno.matriculas = cria_arvore_matricula(); //arvore de matriculas
+    aluno.notas = cria_arvore_notas(); //arvore de notas
     return aluno;
 }
 
@@ -81,6 +81,22 @@ Dado_aluno buscar_aluno(Lista_alunos *lst_aluno, int matricula){
     return aluno;
 }
 
+Lista_alunos *buscar_aluno_por_matricula(Lista_alunos *lst_aluno, int matricula){
+    
+    Lista_alunos *aux;
+    aux = lst_aluno;
+    Lista_alunos *aluno;
+    aluno = NULL;
+    while(aux != NULL){
+        if(aux->aluno.matricula == matricula){
+            aluno = aux;
+            break;
+        }
+        aux = aux->prox;
+    }
+    return aluno;
+}
+
 void imprime_dado_aluno(Dado_aluno aluno){
     printf("Matricula: %d\n", aluno.matricula);
     printf("Nome: %s\n", aluno.nome);
@@ -92,7 +108,7 @@ void imprimir_lista_alunos(Lista_alunos *lst_aluno){
     aux = lst_aluno;
     while(aux != NULL){
         imprime_dado_aluno(aux->aluno);
-        if(aux->aluno.matriculas != NULL && aux->aluno.notas != NULL){
+        if( aux->aluno.notas != NULL){
             imprime_avore_matricula(aux->aluno.matriculas);
             imprime_arvore_notas(aux->aluno.notas);
         }

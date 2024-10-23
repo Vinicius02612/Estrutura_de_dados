@@ -1,0 +1,11 @@
+Linha de comando para executar a depuração de códigos em c:
+gcc -g -Wall -Werror main.c lista_alunos.c arvore_curso.c  arvore_disciplinas.c arvore_matricula.c arvore_notas.c 
+
+Executar testes:
+gcc -o teste  unitary_tests.c lista_alunos.c arvore_curso.c  arvore_disciplinas.c arvore_matricula.c arvore_notas.c
+
+Executar programa:
+gcc -o saida  main.c lista_alunos.c arvore_curso.c  arvore_disciplinas.c arvore_matricula.c arvore_notas.c 
+
+
+

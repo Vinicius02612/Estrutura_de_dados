@@ -48,3 +48,53 @@ int inserir_arvore_nota(Arvore_notas **raiz_notas, Dado_nota nota){
     }
     return inseriu;
 }
+
+Arvore_notas *buscar_nota_aluno(Arvore_notas *raiz_notas, int codigo_disciplina){
+    Arvore_notas *nota;
+    if(raiz_notas != NULL){
+        if(raiz_notas->nota.codigo_disciplina == codigo_disciplina){
+            nota = raiz_notas;
+        }else if(codigo_disciplina < raiz_notas->nota.codigo_disciplina){
+            nota = buscar_nota_aluno(raiz_notas->esq, codigo_disciplina);
+        }else{
+            nota = buscar_nota_aluno(raiz_notas->dir, codigo_disciplina);
+        }
+    }
+    return nota;
+}
+
+int inserir_nota_aluno(Lista_alunos *lst_alunos, int matricula, Dado_nota nota ){
+   Dado_aluno aluno;
+   int status = 0;
+   Lista_alunos *aluno_notas = buscar_aluno_por_matricula(lst_alunos, matricula);
+
+   status = inserir_arvore_nota(&aluno_notas->aluno.notas, nota);
+
+   return status;
+
+}
+
+void imprime_dado_nota(Dado_nota nota){
+    printf("---------------------------\n");
+    printf("Codigo disciplina: %d\n", nota.codigo_disciplina);
+    printf("Nota final: %.2f\n", nota.nota_final);
+    printf("Semestre cursado: %d\n", nota.semestre_cursado);
+    printf("---------------------------\n");
+}
+
+void imprime_arvore_notas(Arvore_notas *raiz_notas){
+    if(raiz_notas != NULL){
+        imprime_arvore_notas(raiz_notas->esq);
+        imprime_dado_nota(raiz_notas->nota);
+        imprime_arvore_notas(raiz_notas->dir);
+    }
+}
+
+// liberar a arvore de notas
+void libera_arvore_notas(Arvore_notas *raiz){
+    if(raiz != NULL){
+        libera_arvore_notas(raiz->esq);
+        libera_arvore_notas(raiz->dir);
+        free(raiz);
+    }
+}
