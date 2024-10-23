@@ -56,6 +56,7 @@ int inserir_curso(Arvore_curso **raiz, Dado_curso curso){
     return inseriu;
 }
 
+
 int verifica_codigo_curso(Arvore_curso *raiz, int codigo_curso){
     int encontrou = 0;
     if(raiz != NULL){

@@ -8,4 +8,4 @@ Executar programa:
 gcc -o saida  main.c lista_alunos.c arvore_curso.c  arvore_disciplinas.c arvore_matricula.c arvore_notas.c 
 
 
-
+gcc -o saida  main.c "../Questao_01/lista_alunos.c"  "../Questao_01/arvore_curso.c"  "../Questao_01/arvore_disciplinas.c" "../Questao_01/arvore_matricula.c" "../Questao_01/arvore_notas.c"
