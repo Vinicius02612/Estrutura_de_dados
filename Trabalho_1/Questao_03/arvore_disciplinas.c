@@ -39,16 +39,85 @@ Dado_disciplina lerDadosDisciplina(){
     return disciplina;
 }
 
+
+int pega_altura(Arvore_disciplina *raiz){
+    if(raiz == NULL){
+        return -1;
+    }else{
+        return raiz->altura;
+    }
+   
+}
+
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+void atualizar_altura(Arvore_disciplina *raiz){
+
+    if(raiz != NULL){
+        raiz->altura = 1 + max(pega_altura(raiz->esq), pega_altura(raiz->dir));
+    }
+}
+
+void rotacao_direita(Arvore_disciplina **raiz){
+    Arvore_disciplina *aux;
+    aux = (*raiz)->esq;
+    (*raiz)->esq = aux->dir;
+    aux->dir = *raiz;
+    
+    atualizar_altura(*raiz);
+    atualizar_altura(aux);
+    *raiz = aux;
+}
+
+
+void rotacao_esquerda(Arvore_disciplina **raiz){
+    Arvore_disciplina *aux;
+    aux = (*raiz)->dir;
+    (*raiz)->dir = aux->esq;
+    aux->esq = *raiz;
+   
+    atualizar_altura(*raiz);
+    atualizar_altura(aux);
+    *raiz = aux;
+}
+
+void balancear_arvore(Arvore_disciplina **raiz) {
+    atualizar_altura(*raiz);
+
+    int fb = pega_altura((*raiz)->esq) - pega_altura((*raiz)->dir);
+    if (fb > 1) {
+        if (pega_altura((*raiz)->esq->esq) >= pega_altura((*raiz)->esq->dir)) {
+            rotacao_direita(raiz);
+        } else {
+            rotacao_esquerda(&(*raiz)->esq);
+            rotacao_direita(raiz);
+        }
+    } else if (fb < -1) {
+        if (pega_altura((*raiz)->dir->dir) >= pega_altura((*raiz)->dir->esq)) {
+            rotacao_esquerda(raiz);
+        } else {
+            rotacao_direita(&(*raiz)->dir);
+            rotacao_esquerda(raiz);
+        }
+    }
+}
+
+
 int inserir_disciplina(Arvore_disciplina **raiz_disciplina, Dado_disciplina disciplina){
-    int inseriu = 0;
+    int inseriu;
     if(*raiz_disciplina == NULL){
         *raiz_disciplina = aloca_no_disciplina(disciplina);
         inseriu = 1;
     }else if(disciplina.codigo_disciplina < (*raiz_disciplina)->disciplina.codigo_disciplina){
        inseriu = inserir_disciplina(&((*raiz_disciplina)->esq), disciplina);
-    }else{
+    }else if(disciplina.codigo_disciplina > (*raiz_disciplina)->disciplina.codigo_disciplina){
         inseriu = inserir_disciplina(&((*raiz_disciplina)->dir), disciplina);
+    }else{
+        inseriu = 0;
     }
+    balancear_arvore(raiz_disciplina);
     return inseriu;
 }
 
@@ -76,7 +145,6 @@ int verifica_carga_horaria(Dado_disciplina disciplina){
 //adicionar disciplina ao curso
 int adicionar_disciplina_curso(Arvore_curso *raiz_curso, Dado_disciplina disciplina, int codigo_curso){
     int adicionou, status;
-    Arvore_curso *arvore_curso;
     Dado_curso curso;
     if(raiz_curso != NULL){
         curso = buscar_dado_curso(raiz_curso, codigo_curso);

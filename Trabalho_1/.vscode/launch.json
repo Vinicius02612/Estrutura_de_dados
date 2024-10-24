@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/ubuntu-vinicius/Documentos/Estrutura_de_dados_2/Trabalho_1/Questao_01",
-      "program": "/home/ubuntu-vinicius/Documentos/Estrutura_de_dados_2/Trabalho_1/Questao_01/main",
+      "cwd": "/home/ubuntu-vinicius/Documentos/Estrutura_de_dados_2/Trabalho_1/Questao_03",
+      "program": "/home/ubuntu-vinicius/Documentos/Estrutura_de_dados_2/Trabalho_1/Questao_03/a.out",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
