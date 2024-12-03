@@ -24,7 +24,7 @@ Arvore_matricula *aloca_no_matricula(int codigo_disciplina){
     return novo_matricula;
 }
 
-int pega_altura(Arvore_matricula *raiz){
+int pega_altura_matricula(Arvore_matricula *raiz){
     if(raiz == NULL){
         return -1;
     }else{
@@ -33,56 +33,56 @@ int pega_altura(Arvore_matricula *raiz){
    
 }
 
-int max(int a, int b) {
+int max_matricula(int a, int b) {
     return (a > b) ? a : b;
 }
 
-void atualizar_altura(Arvore_matricula *raiz){
+void atualizar_altura_matricula(Arvore_matricula *raiz){
 
     if(raiz != NULL){
-        raiz->altura = 1 + max(pega_altura(raiz->esq), pega_altura(raiz->dir));
+        raiz->altura = 1 + max_matricula(pega_altura_matricula(raiz->esq), pega_altura_matricula(raiz->dir));
     }
 }
 
-void rotacao_direita(Arvore_matricula **raiz){
+void rotacao_direita_matricula(Arvore_matricula **raiz){
     Arvore_matricula *aux;
     aux = (*raiz)->esq;
     (*raiz)->esq = aux->dir;
     aux->dir = *raiz;
     
-    atualizar_altura(*raiz);
-    atualizar_altura(aux);
+    atualizar_altura_matricula(*raiz);
+    atualizar_altura_matricula(aux);
     *raiz = aux;
 }
 
-void rotacao_esquerda(Arvore_matricula **raiz){
+void rotacao_esquerda_matricula(Arvore_matricula **raiz){
     Arvore_matricula *aux;
     aux = (*raiz)->dir;
     (*raiz)->dir = aux->esq;
     aux->esq = *raiz;
    
-    atualizar_altura(*raiz);
-    atualizar_altura(aux);
+    atualizar_altura_matricula(*raiz);
+    atualizar_altura_matricula(aux);
     *raiz = aux;
 }
 
-void balancear_arvore(Arvore_matricula **raiz) {
-    atualizar_altura(*raiz);
+void balancear_arvore_matricula(Arvore_matricula **raiz) {
+    atualizar_altura_matricula(*raiz);
 
-    int fb = pega_altura((*raiz)->esq) - pega_altura((*raiz)->dir);
+    int fb = pega_altura_matricula((*raiz)->esq) - pega_altura_matricula((*raiz)->dir);
     if (fb > 1) {
-        if (pega_altura((*raiz)->esq->esq) >= pega_altura((*raiz)->esq->dir)) {
-            rotacao_direita(raiz);
+        if (pega_altura_matricula((*raiz)->esq->esq) >= pega_altura_matricula((*raiz)->esq->dir)) {
+            rotacao_direita_matricula(raiz);
         } else {
-            rotacao_esquerda(&(*raiz)->esq);
-            rotacao_direita(raiz);
+            rotacao_esquerda_matricula(&(*raiz)->esq);
+            rotacao_direita_matricula(raiz);
         }
     } else if (fb < -1) {
-        if (pega_altura((*raiz)->dir->dir) >= pega_altura((*raiz)->dir->esq)) {
-            rotacao_esquerda(raiz);
+        if (pega_altura_matricula((*raiz)->dir->dir) >= pega_altura_matricula((*raiz)->dir->esq)) {
+            rotacao_esquerda_matricula(raiz);
         } else {
-            rotacao_direita(&(*raiz)->dir);
-            rotacao_esquerda(raiz);
+            rotacao_direita_matricula(&(*raiz)->dir);
+            rotacao_esquerda_matricula(raiz);
         }
     }
 }
@@ -101,7 +101,7 @@ int inserir_arvore_matricula(Arvore_matricula **raiz_matricula, int codigo_disci
     }else{
         inseriu = 0;
     }
-    balancear_arvore(raiz_matricula);
+    balancear_arvore_matricula(raiz_matricula);
     return inseriu;
 }
 
@@ -154,7 +154,7 @@ int remover_arvore_matricula(Arvore_matricula **raiz_matricula, int codigo_disci
             status = remover_arvore_matricula(&((*raiz_matricula)->dir), codigo_disciplina);
         }
     }
-    balancear_arvore(raiz_matricula);
+    balancear_arvore_matricula(raiz_matricula);
     return status;
 }
 

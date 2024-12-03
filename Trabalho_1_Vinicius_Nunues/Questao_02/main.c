@@ -3,7 +3,7 @@
 #include  <string.h>
 #include <time.h>
 
-#include "../Questao_01/prototipos.h"
+#include "../Questao_03/prototipos.h"
 
 
 void insercao_arvore_curso(){
@@ -37,7 +37,7 @@ void insercao_arvore_curso(){
         t_fim = clock();
         tempo_gasto = ((double)t_fim - t_inicio) / CLOCKS_PER_SEC * 1000;
 
-        printf("Tempo gasto para inserir o curso %d: %f\n", curso.codigo_curso, tempo_gasto);
+
 
         tempo_total += tempo_gasto;
     }
@@ -58,7 +58,7 @@ void insercao_arvore_curso(){
         // calcular tempo em milisegundos
         tempo_gasto = ((double)t_fim - t_inicio) / CLOCKS_PER_SEC * 1000;
 
-        printf("Tempo gasto para inserir o curso %d: %f\n", curso.codigo_curso, tempo_gasto);
+
        
         tempo_total_inverso += tempo_gasto;
         

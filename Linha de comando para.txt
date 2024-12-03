@@ -9,3 +9,81 @@ gcc -o saida  main.c lista_alunos.c arvore_curso.c  arvore_disciplinas.c arvore_
 
 
 gcc -o saida  main.c "../Questao_01/lista_alunos.c"  "../Questao_01/arvore_curso.c"  "../Questao_01/arvore_disciplinas.c" "../Questao_01/arvore_matricula.c" "../Questao_01/arvore_notas.c"
+
+
+
+TEMPO DE INSERÇÃO DE CADA ELEMENTO NA ARVORE DE CURSO
+EM DIFIRENTES ORDEMS
+
+ORDEM 1: 43;59;99;41;16;98;24;15;13;60;55;42;78;95;49
+------------------------------------------------------------------------
+Tempo total gasto para inserir 10 cursos: 0.029000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.018000
+
+------------------------------------------------------------------------
+Tempo total gasto para inserir 10 cursos: 0.053000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.041000
+
+
+=========================================================================
+Tempo total gasto para inserir 10 cursos: 0.038000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.044000
+
+=======================================================================
+
+Tempo total gasto para inserir 10 cursos: 0.056000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.050000
+
+
+=======================================================================
+Tempo total gasto para inserir 10 cursos: 0.044000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.047000
+
+=========================================================================
+Tempo total gasto para inserir 10 cursos: 0.068000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.044000
+
+==========================================================================
+Tempo total gasto para inserir 10 cursos: 0.050000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.038000
+
+===========================================================================
+
+Tempo total gasto para inserir 10 cursos: 0.036000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.039000
+
+===========================================================================
+Tempo total gasto para inserir 10 cursos: 0.050000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.041000
+
+===========================================================================
+Tempo total gasto para inserir 10 cursos: 0.048000
+
+
+Tempo total gasto para inserir 10 cursos de forma inversa: 0.034000
+
+
+
+
+
+
+
+

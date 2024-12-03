@@ -43,7 +43,7 @@ Dado_curso lerDadosCurso(){
     return curso;
 }
 
-int pega_altura(Arvore_curso *raiz){
+int pega_altura_curso(Arvore_curso *raiz){
     if(raiz == NULL){
         return -1;
     }else{
@@ -52,58 +52,58 @@ int pega_altura(Arvore_curso *raiz){
    
 }
 
-int max(int a, int b) {
+int max_curso(int a, int b) {
     return (a > b) ? a : b;
 }
 
-void atualizar_altura(Arvore_curso *raiz){
+void atualiza_altura_curso(Arvore_curso *raiz){
 
     if(raiz != NULL){
-        raiz->altura = 1 + max(pega_altura(raiz->esq), pega_altura(raiz->dir));
+        raiz->altura = 1 + max_curso(pega_altura_curso(raiz->esq), pega_altura_curso(raiz->dir));
     }
 }
 
-void rotacao_direita(Arvore_curso **raiz){
+void rotacao_direita_curso(Arvore_curso **raiz){
     Arvore_curso *aux;
     aux = (*raiz)->esq;
     (*raiz)->esq = aux->dir;
     aux->dir = *raiz;
     
-    atualizar_altura(*raiz);
-    atualizar_altura(aux);
+    atualiza_altura_curso(*raiz);
+    atualiza_altura_curso(aux);
     *raiz = aux;
 }
 
 
-void rotacao_esquerda(Arvore_curso **raiz){
+void rotacao_esquerda_curso(Arvore_curso **raiz){
     Arvore_curso *aux;
     aux = (*raiz)->dir;
     (*raiz)->dir = aux->esq;
     aux->esq = *raiz;
    
-    atualizar_altura(*raiz);
-    atualizar_altura(aux);
+    atualiza_altura_curso(*raiz);
+    atualiza_altura_curso(aux);
     *raiz = aux;
 }
 
 //balanceamento da arvore 
-void balancear_arvore(Arvore_curso **raiz) {
-    atualizar_altura(*raiz);
+void balancea_curso(Arvore_curso **raiz) {
+    atualiza_altura_curso(*raiz);
 
-    int fb = pega_altura((*raiz)->esq) - pega_altura((*raiz)->dir);
+    int fb = pega_altura_curso((*raiz)->esq) - pega_altura_curso((*raiz)->dir);
     if (fb > 1) {
-        if (pega_altura((*raiz)->esq->esq) >= pega_altura((*raiz)->esq->dir)) {
-            rotacao_direita(raiz);
+        if (pega_altura_curso((*raiz)->esq->esq) >= pega_altura_curso((*raiz)->esq->dir)) {
+            rotacao_direita_curso(raiz);
         } else {
-            rotacao_esquerda(&(*raiz)->esq);
-            rotacao_direita(raiz);
+            rotacao_esquerda_curso(&(*raiz)->esq);
+            rotacao_direita_curso(raiz);
         }
     } else if (fb < -1) {
-        if (pega_altura((*raiz)->dir->dir) >= pega_altura((*raiz)->dir->esq)) {
-            rotacao_esquerda(raiz);
+        if (pega_altura_curso((*raiz)->dir->dir) >= pega_altura_curso((*raiz)->dir->esq)) {
+            rotacao_esquerda_curso(raiz);
         } else {
-            rotacao_direita(&(*raiz)->dir);
-            rotacao_esquerda(raiz);
+            rotacao_direita_curso(&(*raiz)->dir);
+            rotacao_esquerda_curso(raiz);
         }
     }
 }
@@ -111,7 +111,7 @@ void balancear_arvore(Arvore_curso **raiz) {
 /* Função para inserir um curso na arvore */
 int inserir_curso(Arvore_curso **raiz, Dado_curso curso){
     int inseriu;
-
+    
     if(*raiz == NULL){
         *raiz = aloca_no_curso(curso);
         inseriu = 1;
@@ -122,7 +122,7 @@ int inserir_curso(Arvore_curso **raiz, Dado_curso curso){
     }else{
         inseriu = 0;
     }
-    balancear_arvore(raiz);
+    balancea_curso(raiz);
     return inseriu;
 }
 

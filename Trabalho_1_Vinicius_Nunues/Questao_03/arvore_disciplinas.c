@@ -40,7 +40,7 @@ Dado_disciplina lerDadosDisciplina(){
 }
 
 
-int pega_altura(Arvore_disciplina *raiz){
+int pega_altura_disciplina(Arvore_disciplina *raiz){
     if(raiz == NULL){
         return -1;
     }else{
@@ -49,57 +49,57 @@ int pega_altura(Arvore_disciplina *raiz){
    
 }
 
-int max(int a, int b) {
+int max_disciplina(int a, int b) {
     return (a > b) ? a : b;
 }
 
-void atualizar_altura(Arvore_disciplina *raiz){
+void atualizar_altura_disciplina(Arvore_disciplina *raiz){
 
     if(raiz != NULL){
-        raiz->altura = 1 + max(pega_altura(raiz->esq), pega_altura(raiz->dir));
+        raiz->altura = 1 + max_disciplina(pega_altura_disciplina(raiz->esq), pega_altura_disciplina(raiz->dir));
     }
 }
 
-void rotacao_direita(Arvore_disciplina **raiz){
+void rotacao_direita_disciplina(Arvore_disciplina **raiz){
     Arvore_disciplina *aux;
     aux = (*raiz)->esq;
     (*raiz)->esq = aux->dir;
     aux->dir = *raiz;
     
-    atualizar_altura(*raiz);
-    atualizar_altura(aux);
+    atualizar_altura_disciplina(*raiz);
+    atualizar_altura_disciplina(aux);
     *raiz = aux;
 }
 
 
-void rotacao_esquerda(Arvore_disciplina **raiz){
+void rotacao_esquerda_disciplina(Arvore_disciplina **raiz){
     Arvore_disciplina *aux;
     aux = (*raiz)->dir;
     (*raiz)->dir = aux->esq;
     aux->esq = *raiz;
    
-    atualizar_altura(*raiz);
-    atualizar_altura(aux);
+    atualizar_altura_disciplina(*raiz);
+    atualizar_altura_disciplina(aux);
     *raiz = aux;
 }
 
-void balancear_arvore(Arvore_disciplina **raiz) {
-    atualizar_altura(*raiz);
+void balancear_arvore_disciplina(Arvore_disciplina **raiz) {
+    atualizar_altura_disciplina(*raiz);
 
-    int fb = pega_altura((*raiz)->esq) - pega_altura((*raiz)->dir);
+    int fb = pega_altura_disciplina((*raiz)->esq) - pega_altura_disciplina((*raiz)->dir);
     if (fb > 1) {
-        if (pega_altura((*raiz)->esq->esq) >= pega_altura((*raiz)->esq->dir)) {
-            rotacao_direita(raiz);
+        if (pega_altura_disciplina((*raiz)->esq->esq) >= pega_altura_disciplina((*raiz)->esq->dir)) {
+            rotacao_direita_disciplina(raiz);
         } else {
-            rotacao_esquerda(&(*raiz)->esq);
-            rotacao_direita(raiz);
+            rotacao_esquerda_disciplina(&(*raiz)->esq);
+            rotacao_direita_disciplina(raiz);
         }
     } else if (fb < -1) {
-        if (pega_altura((*raiz)->dir->dir) >= pega_altura((*raiz)->dir->esq)) {
-            rotacao_esquerda(raiz);
+        if (pega_altura_disciplina((*raiz)->dir->dir) >= pega_altura_disciplina((*raiz)->dir->esq)) {
+            rotacao_esquerda_disciplina(raiz);
         } else {
-            rotacao_direita(&(*raiz)->dir);
-            rotacao_esquerda(raiz);
+            rotacao_direita_disciplina(&(*raiz)->dir);
+            rotacao_esquerda_disciplina(raiz);
         }
     }
 }
@@ -117,7 +117,7 @@ int inserir_disciplina(Arvore_disciplina **raiz_disciplina, Dado_disciplina disc
     }else{
         inseriu = 0;
     }
-    balancear_arvore(raiz_disciplina);
+    balancear_arvore_disciplina(raiz_disciplina);
     return inseriu;
 }
 
