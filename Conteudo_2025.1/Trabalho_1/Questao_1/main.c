@@ -5,7 +5,7 @@
 
 int main(){
     int opcao, status, status_busca;
-    char nomeArtista[50], tituloAlbum[50];
+    char nomeArtista[50], tituloAlbum[50],tipoArtista[50],estilo[50];
 
     Dado_Artista dado_artista;
     Dado_Album dado_album;
@@ -29,7 +29,11 @@ int main(){
             "2 - Cadastrar Album\n"
             "3 - Cadastrar Musica\n"
             "4 - Mostrar todos os artistas cadastrados.\n"
-            "5 - Mostrar todos os artistas cadastrados de um determinado tipo\n"
+            "5 - Mostrar todos os artistas cadastrados de um determinado tipo.\n"
+            "6 - Mostrar todos os artistas cadastrados de um determinado estilo musical.\n"
+            "7 - Mostrar todos os artistas cadastrados de um determinado estilo musical e tipo de artista.\n"
+            "8 - Mostrar todos os album de uma artista.\n"
+            "0 - Sair\n"
         );
 
         scanf("%d", &opcao);
@@ -57,12 +61,12 @@ int main(){
                 break;
             case 3: // cadastrar Musica
                 printf("ESCOLHA UM ALBUM ABAIXO PARA CADASTRAR A MUSICA\n");
-                imprime_arvore_album(album);
+                imprime_arvore_album(arvore_artista->dado.album);
                 printf("Digite o titulo do album: ");
                 scanf("%s", tituloAlbum);
-                status_busca = buscar_album(arvore_artista->dado.album, tituloAlbum, album_encontrado);
+                status_busca = buscar_album(arvore_artista->dado.album, tituloAlbum, &album_encontrado);
 
-                if(album_encontrado != NULL){
+                if(status_busca != 0){
                     dado_musica = ler_dado_musica();
                     status =  insere_musica_album(&album_encontrado, dado_musica);
                     if(status != 0){
@@ -75,9 +79,34 @@ int main(){
             case 4: // Mostrar todos os artistas cadastrados
                 imprime_arvore_artista(arvore_artista);
                 break;
-           
-
-
+            case 5:
+                // Mostar todos os artistas cadastrados de um determinado tipo
+                printf("DIGITE O TIPO DO ARTISTA");
+                scanf("%s", tipoArtista);
+                mostrar_artista_por_tipo(arvore_artista, tipoArtista);
+                break;
+            case 6:
+                /* Mostrar todos os artistas cadastrados de um determinado estilo musical. */
+                printf("DIGITE O ESTILO MUSICAL: \n");
+                scanf("%s", estilo);
+                mostrar_all_artistas_com_estilo_musical(arvore_artista,estilo);
+                break;
+            case 7:
+                /* Mostrar todos os artistas cadastrados de um determinado estilo musical e tipo de artista. */
+                printf("DIGITE O ESTILO MUSICAL: \n");
+                scanf("%s", estilo);
+                printf("DIGITE O TIPO DO ARTISTA: \n");
+                scanf("%s", tipoArtista);
+                break;
+            case 8:
+                /* Mostrar todos as musicas de album de uma artista... */
+                printf("DIGITE O NOME DO ARTISTA: \n");
+                scanf("%s", nomeArtista);
+                printf("DIGITE O NOME DO ALBUM: \n");
+                scanf("%s", tituloAlbum);
+                mostrar_all_musicas_album_artista(arvore_artista, nomeArtista, tituloAlbum);
+                break;
+               
             default:
                 printf("Opcao invalida\n");
         }

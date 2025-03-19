@@ -39,7 +39,7 @@ Arvore_Artista *aloca_no_artista(Dado_Artista dado) {
 }
 
 int insere_artista(Arvore_Artista **raiz, Dado_Artista dado) {
-    int inseriu = 0;
+    int inseriu;
     if(*raiz == NULL) {
         *raiz = aloca_no_artista(dado);
         inseriu = 1;
@@ -113,19 +113,99 @@ int insere_album_artista(Arvore_Artista **raiz_artista, Dado_Album dado_album, c
     return inseriu;
 }
 
+void imprime_dado_artista(Dado_Artista dado){
+
+    printf("---------------------------\n");
+    printf("\nNome: %s\n", dado.nome);
+    printf("\nTipo: %s\n", dado.tipo);
+    printf("\nEstilo: %s\n", dado.estilo);
+    printf("\nNúmero de álbuns: %d\n", dado.num_albuns);
+    if(dado.album != NULL){
+        imprime_arvore_album(dado.album);
+    }else{
+        printf("Nenhum album cadastrado\n");
+    }
+    printf("---------------------------\n");
+
+}
 void imprime_arvore_artista(Arvore_Artista *raiz){
     if(raiz != NULL) {
         imprime_arvore_artista(raiz->esq);
-        printf("Nome: %s\n", raiz->dado.nome);
-        printf("Tipo: %s\n", raiz->dado.tipo);
-        printf("Estilo: %s\n", raiz->dado.estilo);
-        printf("Número de álbuns: %d\n", raiz->dado.num_albuns);
-        if(raiz->dado.album != NULL){
-            imprime_arvore_album(raiz->dado.album);
-        }else{
-            printf("Nenhum album cadastrado\n");
-        }
+        imprime_dado_artista(raiz->dado);
         imprime_arvore_artista(raiz->dir);
+    }
+}
+/* Mostrar todos os artistas cadastrados de um determinado tipo. */
+void mostrar_artista_por_tipo(Arvore_Artista *raiz_artista, char tipo[50]){
+    if(raiz_artista != NULL){
+        if(strcmp(tipo, raiz_artista->dado.tipo)==0){
+            imprime_dado_artista(raiz_artista->dado);
+        }
+        mostrar_artista_por_tipo(raiz_artista->esq,tipo);
+        mostrar_artista_por_tipo(raiz_artista->dir,tipo);
+    }
+}
+
+/* Mostrar todos os artistas cadastrados de um determinado estilo musical. */
+void mostrar_all_artistas_com_estilo_musical(Arvore_Artista *raiz_artista, char estilo[50]){
+     if(raiz_artista != NULL){
+        if(strcmp(estilo, raiz_artista->dado.estilo)==0){
+            imprime_dado_artista(raiz_artista->dado);
+        }
+        mostrar_artista_por_tipo(raiz_artista->esq,estilo);
+        mostrar_artista_por_tipo(raiz_artista->dir,estilo);
+    }
+}
+
+/* Mostrar todos os albuns de um determinado Artista */
+void mostrar_all_albuns_de_um_artista(Arvore_Artista *raiz_artista, char nome[50]){
+  
+    if(raiz_artista != NULL){
+        if(strcmp(nome, raiz_artista->dado.nome)==0){
+            imprime_arvore_album(raiz_artista->dado.album);
+        }
+        mostrar_all_albuns_de_um_artista(raiz_artista->esq,nome);
+        mostrar_all_albuns_de_um_artista(raiz_artista->dir,nome);
+    }
+}
+
+/* Mostrar todos os albuns de determinado ano de um artista */
+void mostrar_all_albuns_artista_ano(Arvore_Artista *raiz_artista, char nome[50], int ano){
+    if(raiz_artista != NULL){
+        if(strcmp(nome, raiz_artista->dado.nome)==0 && raiz_artista->dado.album->dado.ano_lancamento == ano){
+            mostra_dado_album(raiz_artista->dado.album->dado);
+        }
+        mostrar_all_albuns_artista_ano(raiz_artista->esq,nome,ano);
+        mostrar_all_albuns_artista_ano(raiz_artista->dir,nome,ano);
+    }else{
+        printf("Nenhum artista cadastrado com esse nome\n");
+    }
+}
+
+/* Mostrar todos as musicas de album de uma artista... */
+void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeArtista[50], char nomeAlbum[50]){
+    Arvore_Artista *artista;
+    Arvore_Album *album;
+    int album_encontrado;
+    album_encontrado = 0;
+
+    if(raiz_artista != NULL){
+        artista = buscar_artista_tow(raiz_artista, nomeArtista);
+        if(artista != NULL){
+            if(artista->dado.album != NULL){
+                album_encontrado = buscar_album(artista->dado.album, nomeAlbum, &album);
+                if(album_encontrado){
+                    imprime_arvore_musica(album->dado.musica);
+                }else{
+                    printf("Nenhum album cadastrado com esse nome\n");
+                }
+            }else{
+                printf("Nenhum album cadastrado\n");
+            }
+        }else{
+            printf("Nenhum artista cadastrado com esse nome\n");
+        }
+
     }
 }
 void libera_arvore_artista(Arvore_Artista *raiz){

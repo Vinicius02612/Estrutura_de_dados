@@ -30,6 +30,7 @@ typedef struct Arvore_Album {
     Dado_Album dado;
     struct Arvore_Album *esq;
     struct Arvore_Album *dir;
+    
 } Arvore_Album;
 /* 
 E para cada artista deve se ter o nome do artista, tipo (cantor(a), Dupla, Banda, Grupo, ...), o estilo 
@@ -67,15 +68,17 @@ Arvore_Album *cria_arvore_album();
 int insere_album(Arvore_Album **raiz, Dado_Album dado);
 void imprime_arvore_album(Arvore_Album *raiz);
 void libera_arvore_album(Arvore_Album *raiz);
-int buscar_album(Arvore_Album *raiz_album, char titulo[50], Arvore_Album *encontrado);
-
+int buscar_album(Arvore_Album *raiz_album, char titulo[50], Arvore_Album **encontrado);
+void mostra_dado_album(Dado_Album dado);
 
 // criar função para inserir um album a um artista
 int buscar_artista(Arvore_Artista *raiz, char nome[50]);
 int insere_album_artista(Arvore_Artista **raiz,  Dado_Album dado_album, char nomeArtista[50]);
 
+void imprime_dado_artista(Dado_Artista dado);
+void mostrar_all_artistas_com_estilo_musical(Arvore_Artista *raiz_artista, char estilo[50]);
 
-
+void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeArtista[50], char nomeAlbum[50]);
 
 
 // Funções para manipulação da árvore de artistas
@@ -86,3 +89,4 @@ int remove_artista(Arvore_Artista **raiz, char *nome);
 void imprime_arvore_artista(Arvore_Artista *raiz);
 void libera_arvore_artista(Arvore_Artista *raiz);
 Arvore_Artista *buscar_artista_tow(Arvore_Artista *raiz, char nome[50]);
+void mostrar_artista_por_tipo(Arvore_Artista *raiz_artista, char tipo[50]);

@@ -13,6 +13,8 @@ Dado_Musica ler_dado_musica(){
 
     printf("Digite a duracao da musica: ");
     scanf("%d", &dado.duracao);
+
+    return dado;
 }
 
 

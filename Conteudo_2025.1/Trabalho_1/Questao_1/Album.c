@@ -59,13 +59,13 @@ int insere_album(Arvore_Album **raiz, Dado_Album dado) {
 }
 
 
-int buscar_album(Arvore_Album *raiz_album, char titulo[50], Arvore_Album *encontrado){
+int buscar_album(Arvore_Album *raiz_album, char titulo[50], Arvore_Album **encontrado){
     int encontrou;
     if(raiz_album == NULL) {
         encontrou = 0;
     } else {
         if(strcmp(titulo, raiz_album->dado.titulo) == 0) {
-            encontrado = raiz_album;
+            *encontrado = raiz_album;
             encontrou = 1;
         } else {
             if(strcmp(titulo, raiz_album->dado.titulo) < 0) {
@@ -78,15 +78,19 @@ int buscar_album(Arvore_Album *raiz_album, char titulo[50], Arvore_Album *encont
         }
     }
     return encontrou;
-} 
+}
+
+void mostra_dado_album(Dado_Album dado){
+    printf("Título: %s\n", dado.titulo);
+    printf("Ano de lançamento: %d\n", dado.ano_lancamento);
+    printf("Quantidade de músicas: %d\n", dado.qtd_musicas);
+}
 
 
 void imprime_arvore_album(Arvore_Album *raiz){
     if(raiz != NULL) {
         imprime_arvore_album(raiz->esq);
-        printf("Título: %s\n", raiz->dado.titulo);
-        printf("Ano de lançamento: %d\n", raiz->dado.ano_lancamento);
-        printf("Quantidade de músicas: %d\n", raiz->dado.qtd_musicas);
+        mostra_dado_album(raiz->dado);
         imprime_arvore_album(raiz->dir);
     }
 }
