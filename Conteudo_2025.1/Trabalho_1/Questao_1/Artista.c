@@ -60,7 +60,7 @@ int buscar_artista(Arvore_Artista *raiz, char nome[50]){
     int encontrou;
     if(raiz == NULL) {
         encontrou = 0;
-    } else {
+    } else {  
         if(strcmp(nome, raiz->dado.nome) == 0) {
             encontrou = 1;
         } else {

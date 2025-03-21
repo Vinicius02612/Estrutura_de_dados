@@ -14,6 +14,7 @@ void insercao_arvore_curso(){
     for(int i = 0; i < 10; i++){
         Dado_curso curso;
         curso.codigo_curso = i;
+        
         sprintf(curso.nome_curso, "Curso %d", i);
         curso.carga_horaria = i*1000;
         curso.quantidade_periodos = i*2;
