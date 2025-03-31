@@ -4,7 +4,7 @@
 
 
 int main(){
-    int opcao, status, status_busca;
+    int opcao, status, status_busca,ano;
     char nomeArtista[50], tituloAlbum[50],tipoArtista[50],estilo[50];
 
     Dado_Artista dado_artista;
@@ -33,6 +33,8 @@ int main(){
             "6 - Mostrar todos os artistas cadastrados de um determinado estilo musical.\n"
             "7 - Mostrar todos os artistas cadastrados de um determinado estilo musical e tipo de artista.\n"
             "8 - Mostrar todos os album de uma artista.\n"
+            "9 - Mostrar todos os albuns de um determinado ano de um artista.\n"
+            "10 - Mostrar todas as músicas de um determinado álbum de um determinado artista.\n"
             "0 - Sair\n"
         );
 
@@ -106,6 +108,24 @@ int main(){
                 scanf("%s", tituloAlbum);
                 mostrar_all_musicas_album_artista(arvore_artista, nomeArtista, tituloAlbum);
                 break;
+            case 9:
+                /* Mostrar todos os albuns de um determinado ano de um artista */
+                printf("DIGITE O NOME DO ARTISTA: \n");
+                scanf("%s", nomeArtista);
+                printf("DIGITE O ANO DO ALBUM: \n");
+                scanf("%d", &ano);
+                mostrar_all_albuns_artista_ano(arvore_artista, nomeArtista, ano);
+                break;
+            case 10:
+                /* x) Mostrar todas as músicas de um determinado álbum de um determinado artista. */
+                printf("DIGITE O NOME DO ARTISTA: \n");
+                scanf("%s", nomeArtista);
+                printf("DIGITE O NOME DO ALBUM: \n");
+                scanf("%s", tituloAlbum);
+                mostrar_all_musicas_album_artista(arvore_artista, nomeArtista, tituloAlbum);
+                
+                break;
+                
                
             default:
                 printf("Opcao invalida\n");
