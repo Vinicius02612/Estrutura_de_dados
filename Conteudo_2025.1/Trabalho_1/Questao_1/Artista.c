@@ -208,6 +208,58 @@ void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeAr
 
     }
 }
+
+/* ix) Mostrar todos os álbuns de um determinado ano de um artista. */
+void mostrar_all_albuns_artista_ano(Arvore_Artista *raiz_artista, char nome[50], int ano){
+    Arvore_Artista *artista_arv =  NULL;
+    if(raiz_artista != NULL){
+        artista_arv = buscar_artista_tow(raiz_artista, nome);
+        if(artista_arv != NULL){
+            if(artista_arv->dado.album != NULL){
+                if(artista_arv->dado.album->dado.ano_lancamento == ano){
+                    mostra_dado_album(artista_arv->dado.album->dado);
+                }else{
+                    printf("Nenhum album cadastrado com esse ano\n");
+                }
+            }else{
+                printf("Nenhum album cadastrado\n");
+            }
+        }
+        
+        mostrar_all_albuns_artista_ano(raiz_artista->esq,nome,ano);
+        mostrar_all_albuns_artista_ano(raiz_artista->dir,nome,ano);
+    }else{
+        printf("Nenhum artista cadastrado com esse nome\n");
+    }
+}
+
+/* x) Mostrar todas as músicas de um determinado álbum de um determinado artista. */
+void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeArtista[50], char nomeAlbum[50]){
+    Arvore_Artista *artista;
+    Arvore_Album *album;
+    int album_encontrado;
+    album_encontrado = 0;
+
+    if(raiz_artista != NULL){
+        artista = buscar_artista_tow(raiz_artista, nomeArtista);
+        if(artista != NULL){
+            if(artista->dado.album != NULL){
+                album_encontrado = buscar_album(artista->dado.album, nomeAlbum, &album);
+                if(album_encontrado){
+                    imprime_arvore_musica(album->dado.musica);
+                }else{
+                    printf("Nenhum album cadastrado com esse nome\n");
+                }
+            }else{
+                printf("Nenhum album cadastrado\n");
+            }
+        }else{
+            printf("Nenhum artista cadastrado com esse nome\n");
+        }
+
+    }
+}
+
 void libera_arvore_artista(Arvore_Artista *raiz){
     if(raiz != NULL) {
         libera_arvore_artista(raiz->esq);
