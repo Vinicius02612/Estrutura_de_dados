@@ -79,8 +79,8 @@ void imprime_dado_artista(Dado_Artista dado);
 void mostrar_all_artistas_com_estilo_musical(Arvore_Artista *raiz_artista, char estilo[50]);
 
 void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeArtista[50], char nomeAlbum[50]);
-
-
+void mostrar_all_albuns_artista_ano(Arvore_Artista *raiz_artista, char nome[50], int ano);
+void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeArtista[50], char nomeAlbum[50]);
 // Funções para manipulação da árvore de artistas
 Dado_Artista ler_dado_artista();
 Arvore_Artista *cria_arvore_artista();
