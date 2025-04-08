@@ -104,9 +104,7 @@ int main(){
                 /* Mostrar todos as musicas de album de uma artista... */
                 printf("DIGITE O NOME DO ARTISTA: \n");
                 scanf("%s", nomeArtista);
-                printf("DIGITE O NOME DO ALBUM: \n");
-                scanf("%s", tituloAlbum);
-                mostrar_all_musicas_album_artista(arvore_artista, nomeArtista, tituloAlbum);
+                mostrar_all_albuns_de_um_artista(arvore_artista, nomeArtista);
                 break;
             case 9:
                 /* Mostrar todos os albuns de um determinado ano de um artista */

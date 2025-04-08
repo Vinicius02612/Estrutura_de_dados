@@ -113,6 +113,28 @@ int insere_album_artista(Arvore_Artista **raiz_artista, Dado_Album dado_album, c
     return inseriu;
 }
 
+Arvore_Artista *ehSoUmFilho(Arvore_Artista *raiz){
+    Arvore_Artista *temp;
+    temp = NULL;
+    if(raiz->esq == NULL){
+        temp = raiz->dir;
+    }else{
+        temp = raiz->esq;
+    }
+    return temp;
+
+}
+
+int remover_artista(Arvore_Artista **raiz, char nome[50]) {
+    int removeu;
+    Arvore_Artista *artista;
+    artista = NULL;
+    if(*raiz != NULL) {
+        
+    }
+    return removeu;
+}
+
 void imprime_dado_artista(Dado_Artista dado){
 
     printf("---------------------------\n");
@@ -169,45 +191,6 @@ void mostrar_all_albuns_de_um_artista(Arvore_Artista *raiz_artista, char nome[50
     }
 }
 
-/* Mostrar todos os albuns de determinado ano de um artista */
-void mostrar_all_albuns_artista_ano(Arvore_Artista *raiz_artista, char nome[50], int ano){
-    if(raiz_artista != NULL){
-        if(strcmp(nome, raiz_artista->dado.nome)==0 && raiz_artista->dado.album->dado.ano_lancamento == ano){
-            mostra_dado_album(raiz_artista->dado.album->dado);
-        }
-        mostrar_all_albuns_artista_ano(raiz_artista->esq,nome,ano);
-        mostrar_all_albuns_artista_ano(raiz_artista->dir,nome,ano);
-    }else{
-        printf("Nenhum artista cadastrado com esse nome\n");
-    }
-}
-
-/* Mostrar todos as musicas de album de uma artista... */
-void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeArtista[50], char nomeAlbum[50]){
-    Arvore_Artista *artista;
-    Arvore_Album *album;
-    int album_encontrado;
-    album_encontrado = 0;
-
-    if(raiz_artista != NULL){
-        artista = buscar_artista_tow(raiz_artista, nomeArtista);
-        if(artista != NULL){
-            if(artista->dado.album != NULL){
-                album_encontrado = buscar_album(artista->dado.album, nomeAlbum, &album);
-                if(album_encontrado){
-                    imprime_arvore_musica(album->dado.musica);
-                }else{
-                    printf("Nenhum album cadastrado com esse nome\n");
-                }
-            }else{
-                printf("Nenhum album cadastrado\n");
-            }
-        }else{
-            printf("Nenhum artista cadastrado com esse nome\n");
-        }
-
-    }
-}
 
 /* ix) Mostrar todos os álbuns de um determinado ano de um artista. */
 void mostrar_all_albuns_artista_ano(Arvore_Artista *raiz_artista, char nome[50], int ano){
@@ -243,20 +226,10 @@ void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeAr
     if(raiz_artista != NULL){
         artista = buscar_artista_tow(raiz_artista, nomeArtista);
         if(artista != NULL){
-            if(artista->dado.album != NULL){
-                album_encontrado = buscar_album(artista->dado.album, nomeAlbum, &album);
-                if(album_encontrado){
-                    imprime_arvore_musica(album->dado.musica);
-                }else{
-                    printf("Nenhum album cadastrado com esse nome\n");
-                }
-            }else{
-                printf("Nenhum album cadastrado\n");
-            }
+            imprime_arvore_album(artista->dado.album);
         }else{
             printf("Nenhum artista cadastrado com esse nome\n");
         }
-
     }
 }
 
