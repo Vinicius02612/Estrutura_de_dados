@@ -108,7 +108,6 @@ int insere_album_artista(Arvore_Artista **raiz_artista, Dado_Album dado_album, c
                 busca_artista->dado.num_albuns += 1;
             }
         }
-
     }
     return inseriu;
 }

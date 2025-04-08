@@ -53,6 +53,19 @@ typedef struct Arvore_Artista {
     struct Arvore_Artista *dir;
 } Arvore_Artista;
 
+
+
+typedef struct dado_playlist{
+    char nome[50];
+    struct Arvore_Musica *musica;
+} Dado_Playlist;
+
+typedef struct Arvore_Playslist{
+    Dado_Playlist dado;
+    struct Arvore_Playslist *esq;
+    struct Arvore_Playslist *dir;
+}Arvore_Playlist;
+
 Dado_Artista ler_dado_artista();
 Arvore_Artista *cria_arvore_artista();
 
@@ -95,3 +108,16 @@ void imprime_arvore_artista(Arvore_Artista *raiz);
 void libera_arvore_artista(Arvore_Artista *raiz);
 Arvore_Artista *buscar_artista_tow(Arvore_Artista *raiz, char nome[50]);
 void mostrar_artista_por_tipo(Arvore_Artista *raiz_artista, char tipo[50]);
+
+Arvore_Playlist *cria_arvore_playlist();
+Arvore_Playlist *aloca_no_playlist(Dado_Playlist dado);
+
+int insere_playlist(Arvore_Playlist **raiz, Dado_Playlist dado);
+int insere_musica_playlist(Arvore_Playlist **raiz_playlist, Dado_Musica dado_musica);
+
+void imprime_arvore_playlist(Arvore_Playlist *raiz);
+void libera_arvore_playlist(Arvore_Playlist *raiz);
+
+Arvore_Playlist *buscar_playlist(Arvore_Playlist *raiz, char nomePlaylist[50]);
+void mostra_dado_playlist(Dado_Playlist dado);
+int remover_playlist(Arvore_Playlist **raiz, char nome[50]);

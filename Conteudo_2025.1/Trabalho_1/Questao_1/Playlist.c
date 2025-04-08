@@ -41,3 +41,5 @@ int insere_playlist(Arvore_Playlist **raiz, Dado_Playlist dado){
     }
     return inseriu;
 }
+
+/* Faz um cópia da arvore de musicas para dentro da arvore de playlist */
