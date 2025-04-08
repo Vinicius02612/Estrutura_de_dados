@@ -53,6 +53,8 @@ typedef struct Arvore_Artista {
     struct Arvore_Artista *dir;
 } Arvore_Artista;
 
+Dado_Artista ler_dado_artista();
+Arvore_Artista *cria_arvore_artista();
 
 // Funções para manipulação da árvore de músicas
 Dado_Musica ler_dado_musica();
@@ -74,16 +76,18 @@ void mostra_dado_album(Dado_Album dado);
 // criar função para inserir um album a um artista
 int buscar_artista(Arvore_Artista *raiz, char nome[50]);
 int insere_album_artista(Arvore_Artista **raiz,  Dado_Album dado_album, char nomeArtista[50]);
-
+int remover_artista(Arvore_Artista **raiz, char nome[50]);
 void imprime_dado_artista(Dado_Artista dado);
 void mostrar_all_artistas_com_estilo_musical(Arvore_Artista *raiz_artista, char estilo[50]);
+void mostrar_all_albuns_de_um_artista(Arvore_Artista *raiz_artista, char nome[50]);
 
 void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeArtista[50], char nomeAlbum[50]);
+
 void mostrar_all_albuns_artista_ano(Arvore_Artista *raiz_artista, char nome[50], int ano);
 void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeArtista[50], char nomeAlbum[50]);
+void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeArtista[50], char nomeAlbum[50]);
 // Funções para manipulação da árvore de artistas
-Dado_Artista ler_dado_artista();
-Arvore_Artista *cria_arvore_artista();
+
 int insere_artista(Arvore_Artista **raiz, Dado_Artista dado);
 int remove_artista(Arvore_Artista **raiz, char *nome);
 void imprime_arvore_artista(Arvore_Artista *raiz);
