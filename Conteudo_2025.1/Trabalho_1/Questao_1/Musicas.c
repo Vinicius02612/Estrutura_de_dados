@@ -78,11 +78,34 @@ int insere_musica_album(Arvore_Album **raiz_album, Dado_Musica dado_musica){
 
 }
 
+
+Arvore_Musica *buscar_musica(Arvore_Musica *raiz, char nomeMusica[50]){
+    Arvore_Musica *muscia;
+
+    if(raiz != NULL){
+        if(raiz->dado.titulo == nomeMusica){
+            muscia = raiz;
+        }else if( strcmp(nomeMusica, raiz->dado.titulo)< 0){
+            muscia = buscar_musica(raiz->esq, nomeMusica);
+        }else{
+            muscia = buscar_musica(raiz->dir, nomeMusica);
+        }
+
+    }
+    return muscia;
+}
+
+void mostra_dado_musica(Dado_Musica dado){
+    printf("---------------------------\n");
+    printf("Título: %s\n", dado.titulo);
+    printf("Duração: %d\n", dado.duracao);
+    printf("---------------------------\n");
+}
+
 void imprime_arvore_musica(Arvore_Musica *raiz){
     if(raiz != NULL) {
         imprime_arvore_musica(raiz->esq);
-        printf("Título: %s\n", raiz->dado.titulo);
-        printf("Duração: %d\n", raiz->dado.duracao);
+        mostra_dado_musica(raiz->dado);
         imprime_arvore_musica(raiz->dir);
     }
 }

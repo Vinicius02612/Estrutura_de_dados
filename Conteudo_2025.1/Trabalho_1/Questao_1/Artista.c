@@ -233,6 +233,37 @@ void mostrar_all_musicas_album_artista(Arvore_Artista *raiz_artista, char nomeAr
     }
 }
 
+
+/* xi) Mostrar todos os álbuns de um determinado ano de todos os artistas cadastrados. */
+void mostrar_all_albuns_artista_ano_todos(Arvore_Artista *raiz_artista, int ano){
+    if(raiz_artista != NULL){
+        if(raiz_artista->dado.album != NULL){
+            if(raiz_artista->dado.album->dado.ano_lancamento == ano){
+                mostra_dado_album(raiz_artista->dado.album->dado);
+            }
+        }
+        mostrar_all_albuns_artista_ano_todos(raiz_artista->esq,ano);
+        mostrar_all_albuns_artista_ano_todos(raiz_artista->dir,ano);
+    }
+}
+
+
+/* xii) Mostrar os dados de uma determinada Música (usuário entrar com o título da música): nome artista,
+título do álbum, ano de lançamento */
+void mostrar_dados_musica(Arvore_Artista *raiz_artista, char nomeMusica[50]){
+    Arvore_Musica *musica;
+    if(raiz_artista != NULL){
+        musica = buscar_musica(raiz_artista->dado.album, nomeMusica);
+        if(musica != NULL){
+            printf("Artista: %s\n", raiz_artista->dado.nome);
+            mostra_dado_musica(musica->dado);
+        }else{
+            printf("Nenhuma musica cadastrada com esse nome\n");
+        }
+    }
+}
+
+
 void libera_arvore_artista(Arvore_Artista *raiz){
     if(raiz != NULL) {
         libera_arvore_artista(raiz->esq);

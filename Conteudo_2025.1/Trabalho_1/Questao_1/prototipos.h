@@ -63,7 +63,8 @@ int insere_musica(Arvore_Musica **raiz, Dado_Musica dado);
 void imprime_arvore_musica(Arvore_Musica *raiz);
 void libera_arvore_musica(Arvore_Musica *raiz);
 int insere_musica_album(Arvore_Album **raiz_album, Dado_Musica dado_musica);
-
+Arvore_Musica *buscar_musica(Arvore_Musica *raiz, char nomeMusica[50]);
+void mostra_dado_musica(Dado_Musica dado);
 // Funções para manipulação da árvore de álbuns
 Dado_Album ler_dado_album();
 Arvore_Album *cria_arvore_album();
