@@ -5,7 +5,7 @@
 
 int main(){
     int opcao, status, status_busca,ano;
-    char nomeArtista[50], tituloAlbum[50],tipoArtista[50],estilo[50];
+    char nomeArtista[50], tituloAlbum[50],tipoArtista[50],estilo[50], nomeMusica;
 
     Dado_Artista dado_artista;
     Dado_Album dado_album;
@@ -121,9 +121,13 @@ int main(){
                 printf("DIGITE O NOME DO ALBUM: \n");
                 scanf("%s", tituloAlbum);
                 mostrar_all_musicas_album_artista(arvore_artista, nomeArtista, tituloAlbum);
-                
                 break;
-                
+            case 11:
+                /* Mostrar os dados de uma determinada Música (usuário entrar com o título da música): nome artista,  título do álbum, ano de lançamento.  */
+                printf("DIGITE O NOME DA MUSICA: \n");
+                scanf("%s", nomeMusica);
+                mostrar_dados_musica(arvore_artista, nomeMusica);
+                break;
                
             default:
                 printf("Opcao invalida\n");

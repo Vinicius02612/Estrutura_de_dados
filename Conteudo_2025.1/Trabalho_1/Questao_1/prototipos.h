@@ -56,7 +56,7 @@ typedef struct Arvore_Artista {
 
 
 typedef struct dado_playlist{
-    char nome[50];
+    char nomePlaylist[50];
     struct Arvore_Musica *musica;
 } Dado_Playlist;
 
