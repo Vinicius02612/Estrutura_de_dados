@@ -130,6 +130,7 @@ int main(){
                 mostrar_dados_musica(arvore_artista, nomeMusica);
                 break;
             case 12:
+                //função da playlist
                 
                
             default:
