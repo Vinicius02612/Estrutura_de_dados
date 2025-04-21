@@ -35,6 +35,7 @@ int main(){
             "8 - Mostrar todos os album de uma artista.\n"
             "9 - Mostrar todos os albuns de um determinado ano de um artista.\n"
             "10 - Mostrar todas as músicas de um determinado álbum de um determinado artista.\n"
+            "11 -Mostrar os dados de uma determinada Música "
             "0 - Sair\n"
         );
 
@@ -128,6 +129,8 @@ int main(){
                 scanf("%s", nomeMusica);
                 mostrar_dados_musica(arvore_artista, nomeMusica);
                 break;
+            case 12:
+                
                
             default:
                 printf("Opcao invalida\n");
