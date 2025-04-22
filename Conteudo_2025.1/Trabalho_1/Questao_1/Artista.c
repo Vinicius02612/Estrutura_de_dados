@@ -252,7 +252,7 @@ título do álbum, ano de lançamento */
 void mostrar_dados_musica(Arvore_Artista *raiz_artista, char nomeMusica[50]){
     Arvore_Musica *musica;
     if(raiz_artista != NULL){
-        musica = buscar_musica(raiz_artista->dado.album, nomeMusica);
+        musica = buscar_musica(raiz_artista->dado.album->dado.musica, nomeMusica);
         if(musica != NULL){
             printf("Artista: %s\n", raiz_artista->dado.nome);
             mostra_dado_musica(musica->dado);
