@@ -5,7 +5,7 @@
 
 int main(){
     int opcao, status, status_busca,ano;
-    char nomeArtista[50], tituloAlbum[50],tipoArtista[50],estilo[50], nomeMusica;
+    char nomeArtista[50], tituloAlbum[50],tipoArtista[50],estilo[50], nomeMusica[50];
 
     Dado_Artista dado_artista;
     Dado_Album dado_album;
@@ -18,7 +18,10 @@ int main(){
     Arvore_Artista *artista;
 
     Arvore_Album *album,*album_encontrado;
-    album_encontrado = NULL;
+    album_encontrado = cria_arvore_album();
+
+    Arvore_Playlist *arvore_playlist;
+    arvore_playlist = cria_arvore_playlist();
     
 
 
@@ -131,6 +134,7 @@ int main(){
                 break;
             case 12:
                 //função da playlist
+                MenuPlayList(&arvore_playlist, arvore_artista);
                 
                
             default:
