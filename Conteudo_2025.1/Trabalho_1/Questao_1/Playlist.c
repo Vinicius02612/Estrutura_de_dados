@@ -105,7 +105,35 @@ Arvore_Playlist *buscar_menor_direita(Arvore_Playlist *raiz)
 
     return no_atual;
 }
+/* ArvPlaylist* buscarPlaylist(ArvPlaylist *r, const char *nome) {
+    ArvPlaylist *aux = NULL;
+    if (r != NULL) {
+        int cmp = strcmp(nome, (*r).info.nome);
+        if (cmp == 0)
+            aux = r;
+        else if (cmp < 0)
+            aux = buscarPlaylist((*r).esq, nome);
+        else
+            aux = buscarPlaylist((*r).dir, nome);
+    }
+    return aux;
+} */
 
+Arvore_Playlist *buscar_playlist(Arvore_Playlist *raiz, char nomePlayList[50]){
+   Arvore_Playlist *encontrou;
+   encontrou = NULL;
+   if(raiz != NULL){
+        if (strcmp(nomePlayList, raiz->dado.nomePlaylist) == 0){
+            encontrou = raiz;
+        }else if (strcmp(nomePlayList, raiz->dado.nomePlaylist) < 0){
+            encontrou = buscar_playlist(raiz->esq, nomePlayList);
+        }else if (strcmp(nomePlayList, raiz->dado.nomePlaylist) > 0){
+            encontrou = buscar_playlist(raiz->dir, nomePlayList);
+        }
+   }
+   return encontrou;
+
+}
 int remover_dado_playList(Arvore_Playlist **raiz, char nome[50])
 {
     int removeu;
@@ -168,6 +196,10 @@ void imprime_arvore_playlist(Arvore_Playlist *raiz)
     {
         imprime_arvore_playlist(raiz->esq);
         printf("Nome da Playlist: %s\n", raiz->dado.nomePlaylist);
+        if(raiz->dado.musica != NULL){
+            printf("Musicas da Playlist: \n");
+            imprime_arvore_musica(raiz->dado.musica);
+        }
         imprime_arvore_playlist(raiz->dir);
     }
 }
@@ -184,8 +216,20 @@ void libera_arvore_playlist(Arvore_Playlist *raiz)
 
 void MenuPlayList(Arvore_Playlist **raiz_playList, Arvore_Artista *raiz_artista)
 {   
-    int opc, status_inseriu, status_remover;
+    int opc, status_inseriu, status_remover,status_busca;
+    char nomePlaylistRemover2[50],nomeMusica[50], nomeArtista[50], nomeAlbum[50];
     Dado_Playlist dado_playlist;
+    Arvore_Playlist *playlist;
+    playlist = NULL;
+
+    Arvore_Musica *musica;
+    Dado_Musica dado_musica;
+    musica = NULL;
+
+    Arvore_Artista *artista;
+    artista = NULL;
+    Arvore_Album *album;
+    album = NULL;
 
     do{
         printf("\n--- MENU DE PLAYLIST ---\n"
@@ -227,11 +271,83 @@ void MenuPlayList(Arvore_Playlist **raiz_playList, Arvore_Artista *raiz_artista)
                 printf("Não foi possível remover a playlist\n");
             }
             break;
-        default:
+        case 4:
+            printf("DIGITE O NOME DA PLAYLIST: \n");
+            scanf("%s", nomePlaylistRemover2);
+            status_remover = remover_dado_playList(raiz_playList, nomePlaylistRemover2);
+            if (status_remover != 0){
+                printf("Playlist removida com sucesso\n");
+            }else{
+                printf("Não foi possível remover a playlist\n");
+            }
+            break;
+        case 5:
+            printf("Playlists cadastradas:\n");
+            imprime_arvore_playlist(*raiz_playList);
+            break;
+        case 6:
+            printf("DIGITE O NOME DA PLAYLIST: \n");
+            char nomePlaylistMusica[50];
+            scanf("%s", nomePlaylistMusica);
+            playlist = buscar_playlist(*raiz_playList, nomePlaylistMusica);
+            if (playlist != NULL){
+                printf("Playlist encontrada com sucesso\n");      
+                // ao invez de recadastrar uma musica na playlist, o usuario pode escolher uma musica ja cadastrada na arvore de artista
+                // e inserir na playlist
+                if(raiz_artista != NULL){
+                    printf("ESCOLHA UM ARTISTA JÁ CADASTRADO ABAIXO:\n");
+                    imprime_arvore_artista(raiz_artista);
+                    printf("Digite o nome do artista: ");
+                    scanf("%s", nomeArtista);
+                    // buscar o artista na arvore de artista
+                    artista = buscar_artista_tow(raiz_artista, nomeArtista);
+                    if(artista != NULL){
+                        printf("Artista encontrado com sucesso\n");
+                        printf("ESCOLHA UM ALBUM JÁ CADASTRADO ABAIXO:\n");
+                        imprime_arvore_album(artista->dado.album);
+                        printf("Digite o nome do album: ");
+                        scanf("%s", nomeAlbum);
+                        status_busca = buscar_album(artista->dado.album, nomeAlbum, &album);
+                        if(status_busca != 0){
+                            printf("Album encontrado com sucesso\n");
+                            printf("ESCOLHA UMA MUSICA JÁ CADASTRADA ABAIXO:\n");
+                            imprime_arvore_musica(raiz_artista->dado.album->dado.musica);
+                            scanf("%s", nomeMusica);
+                            // buscar a musica na arvore de artista
+                            musica = buscar_musica(raiz_artista->dado.album->dado.musica, nomeMusica);
+                            if(musica != NULL){
+                                printf("Música encontrada com sucesso\n");
+                                dado_musica = musica->dado;
+                                status_inseriu = insere_musica(&playlist->dado.musica, dado_musica);
+                                if (status_inseriu != 0){
+                                    printf("Música inserida com sucesso na playlist\n");
+                                }else{
+                                    printf("Não foi possível inserir a música na playlist\n");
+                                }
+                            }else{
+                                printf("Música não encontrada\n");
+                            }
+                        }else{
+                            printf("Album não encontrado\n");
+                        }
+                    }else{
+                        printf("Artista não encontrado\n");
+                    }   
+                }else{
+                    printf("Nenhum artista cadastrado\n");
+                }
+            }else{
+                printf("Playlist não encontrada\n");     
+            }
+            break;
+            
+            default:
             break;
         }
 
     }while (opc != 0);
    
+    return;
+    libera_arvore_playlist(*raiz_playList);
    
 }

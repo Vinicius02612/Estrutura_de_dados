@@ -38,7 +38,8 @@ int main(){
             "8 - Mostrar todos os album de uma artista.\n"
             "9 - Mostrar todos os albuns de um determinado ano de um artista.\n"
             "10 - Mostrar todas as músicas de um determinado álbum de um determinado artista.\n"
-            "11 -Mostrar os dados de uma determinada Música "
+            "11 -Mostrar os dados de uma determinada Música\n "
+            "12 -  Gerenciar Playlist\n"
             "0 - Sair\n"
         );
 
@@ -135,8 +136,6 @@ int main(){
             case 12:
                 //função da playlist
                 MenuPlayList(&arvore_playlist, arvore_artista);
-                
-               
             default:
                 printf("Opcao invalida\n");
         }
