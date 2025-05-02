@@ -110,7 +110,7 @@ int insere_album(Arvore_Album **raiz, Dado_Album dado) {
     }
     if(inseriu == 1) {
         balanceamento_album(raiz);
-        altualiza_altura_album(*raiz);
+        atualiza_altura_album(*raiz);
     }
     return inseriu;
 }

@@ -80,6 +80,24 @@ int buscar_album(Arvore_Album *raiz_album, char titulo[50], Arvore_Album **encon
     return encontrou;
 }
 
+Arvore_Album *buscar_album_tow(Arvore_Album *raiz_album, char titulo[50]){
+    Arvore_Album *encontrou;
+    encontrou = NULL;
+    if(raiz_album != NULL) {
+        if(strcmp(titulo, raiz_album->dado.titulo) == 0) {
+            encontrou = raiz_album;
+        } else {
+            if(strcmp(titulo, raiz_album->dado.titulo) < 0) {
+                encontrou = buscar_album_tow(raiz_album->esq, titulo);
+            } else if(strcmp(titulo, raiz_album->dado.titulo) > 0) {
+                encontrou = buscar_album_tow(raiz_album->dir, titulo);
+            }
+        }
+    }
+    return encontrou;
+}
+
+
 void mostra_dado_album(Dado_Album dado){
     printf("Título: %s\n", dado.titulo);
     printf("Ano de lançamento: %d\n", dado.ano_lancamento);

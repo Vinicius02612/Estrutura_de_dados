@@ -86,6 +86,7 @@ int insere_album(Arvore_Album **raiz, Dado_Album dado);
 void imprime_arvore_album(Arvore_Album *raiz);
 void libera_arvore_album(Arvore_Album *raiz);
 int buscar_album(Arvore_Album *raiz_album, char titulo[50], Arvore_Album **encontrado);
+Arvore_Album *buscar_album_tow(Arvore_Album *raiz_album, char titulo[50]);
 void mostra_dado_album(Dado_Album dado);
 void mostrar_dados_musica(Arvore_Artista *raiz_artista, char nomeMusica[50]);
 // criar função para inserir um album a um artista

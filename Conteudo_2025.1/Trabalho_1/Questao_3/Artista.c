@@ -93,6 +93,7 @@ void balanceamento_artista(Arvore_Artista **raiz){
 }
 
 int insere_artista(Arvore_Artista **raiz, Dado_Artista dado) {
+
     int inseriu;
     if(*raiz == NULL) {
         *raiz = aloca_no_artista(dado);
