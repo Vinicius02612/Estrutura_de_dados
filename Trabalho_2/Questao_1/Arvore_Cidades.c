@@ -199,3 +199,6 @@ void liberar_cidades(Cidade *raiz) {
         free(raiz);
     }
 }
+
+
+
